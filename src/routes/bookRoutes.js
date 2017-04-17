@@ -1,33 +1,25 @@
 var express = require('express');
 var bookRouter = express.Router();
-var sql = require('mssql');
+var mysql = require('mysql');
 
+var config = {
+  user: 'root',
+  password: '',
+  server: 'localhost',
+  database: 'books'
+};
 
-var books = [
-  {
-    title: "Book 1",
-    author: "Author 1"
-  },
-  {
-    title: "Book 2",
-    author: "Author 2"
-  },
-  {
-    title: "Book 3",
-    author: "Author 3"
-  },
-  {
-    title: "Book 4",
-    author: "Author 4"
-  }]
+var connection = mysql.createConnection(config);
+connection.connect();
 
+var books = [];
 var router = function (nav) {
   bookRouter.route('/')
     .get(function (req, res) {
-      var request = new sql.Request();
-      request.query("select * from books", function (err, recordset) {
+      connection.query("select * from books", function (err, recordset) {
+        books = recordset;
         console.log(recordset);
-      })
+      });
       res.render("bookListView", {
         nav: nav,
         books: books
@@ -37,9 +29,10 @@ var router = function (nav) {
   bookRouter.route('/:id')
     .get(function (req, res) {
       var id = req.params.id
+      var currentItem = id - 1
       res.render("bookView", {
         nav: nav,
-        book: books[id]
+        book: books[currentItem]
       });
     });
   return bookRouter;

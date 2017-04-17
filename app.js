@@ -1,18 +1,16 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 5000;
-var sql = require('mssql');
+var mysql = require('mysql');
 var config = {
   user: 'root',
   password: '',
-  port: 3306,
   server: 'localhost',
   database: 'books'
 };
 
-sql.connect(config, function (err) {
-  console.log(err);
-});
+var connection = mysql.createConnection(config)
+connection.connect();
 
 var nav = [{
   Link: '/Books',
