@@ -20,25 +20,26 @@ var books = [
     author: "Author 4"
   }]
 
-var nav = [{
-  Link: '/Books',
-  Text: 'Books'
-}, {
-  Link: '/Authors',
-  Text: 'Authors'
-}]
-
-bookRouter.route('/')
-  .get(function (req, res) {
-    res.render("books", {
-      nav: nav,
-      books: books
+var router = function (nav) {
+  bookRouter.route('/')
+    .get(function (req, res) {
+      res.render("bookListView", {
+        nav: nav,
+        books: books
+      });
     });
-  });
 
-bookRouter.route('/single')
-  .get(function (req, res) {
-    res.send("Hello single book!");
-  });
+  bookRouter.route('/:id')
+    .get(function (req, res) {
+      var id = req.params.id
+      res.render("bookView", {
+        nav: nav,
+        book: books[id]
+      });
+    });
+  return bookRouter;
+};
 
-module.exports = bookRouter;
+
+
+module.exports = router;
