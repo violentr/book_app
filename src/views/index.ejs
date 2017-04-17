@@ -43,10 +43,10 @@
       </div>
       <nav class="collapse navbar-collapse" role="navigation">
         <ul class="nav navbar-nav">
-          <% for (var i=0; i<list.length;i++){ %>
+          <% for (var i=0; i<nav.length;i++){ %>
             <li>
-              <a>
-                <%= list[i] %>
+              <a href="<%= nav[i].Text %>">
+                <%= nav[i].Text %>
               </a>
             </li>
             <% } %>
