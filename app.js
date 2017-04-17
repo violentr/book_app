@@ -9,6 +9,24 @@ var nav = [{
   Link: '/Authors',
   Text: 'Authors'
 }]
+
+var books = [
+  {
+    title: "Book 1",
+    author: "Author 1"
+  },
+  {
+    title: "Book 2",
+    author: "Author 2"
+  },
+  {
+    title: "Book 3",
+    author: "Author 3"
+  },
+  {
+    title: "Book 4",
+    author: "Author 4"
+  }]
 var handlebars = require('express-handlebars');
 app.engine('.hbs', handlebars({
   extname: '.hbs'
@@ -22,13 +40,17 @@ app.set('view engine', 'ejs');
 
 bookRouter.route('/')
   .get(function (req, res) {
-    res.send("Hello Books");
+    res.render("books", {
+      nav: nav,
+      books: books
+    });
   });
 
 bookRouter.route('/single')
   .get(function (req, res) {
     res.send("Hello single book!");
   });
+
 app.use('/Books', bookRouter);
 
 app.get('/', function (req, res) {
