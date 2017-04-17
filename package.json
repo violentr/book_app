@@ -14,7 +14,7 @@
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
     "jade": "^1.11.0",
-    "mssql": "^4.0.1"
+    "mysql": "^2.13.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
