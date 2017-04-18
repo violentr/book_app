@@ -5,9 +5,9 @@ var router = function (nav, db) {
   db.connect();
   bookRouter.route('/')
     .get(function (req, res) {
-      db.query("select * from books", function (err, recordset) {
+      db.query('select * from books', function (err, recordset) {
         console.log(recordset);
-        res.render("bookListView", {
+        res.render('bookListView', {
           nav: nav,
           books: recordset
         });
@@ -18,7 +18,7 @@ var router = function (nav, db) {
     .get(function (req, res) {
       var id = req.params.id;
       db.query('select * from books where book_id=?', id, function (err, recordset) {
-        if (recordset === 0) {
+        if (recordset.length === 0) {
           res.status(404).send('Book Not Found!');
         } else {
           res.render('bookView', {
@@ -26,6 +26,7 @@ var router = function (nav, db) {
             book: recordset[0]
           });
         }
+
       });
     });
   return bookRouter;

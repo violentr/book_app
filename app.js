@@ -13,6 +13,8 @@ var nav = [{
 
 var bookRouter = require('./src/routes/bookRoutes')(nav, db);
 
+var adminRouter = require('./src/routes/adminRoutes')(nav);
+
 var handlebars = require('express-handlebars');
 app.engine('.hbs', handlebars({
   extname: '.hbs'
@@ -33,6 +35,7 @@ app.get('/', function (req, res) {
 });
 
 app.use('/Books', bookRouter);
+app.use('/Admin', adminRouter);
 
 app.listen(port, function (err) {
   console.log('running server on port', port);
