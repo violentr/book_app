@@ -1,16 +1,22 @@
 var express = require('express');
 var bookRouter = express.Router();
+var mongodb = require('mongodb').MongoClient;
 
 var router = function (nav, db) {
-  db.connect();
   bookRouter.route('/')
     .get(function (req, res) {
-      db.query('select * from books', function (err, recordset) {
-        console.log(recordset);
-        res.render('bookListView', {
-          nav: nav,
-          books: recordset
-        });
+      var url = 'mongodb://localhost:27017/booksApp';
+      mongodb.connect(url, function (err, db) {
+        var collection = db.collection('books');
+        collection.find().toArray(
+          function (err, results) {
+            console.log(results);
+            res.render('bookListView', {
+              nav: nav,
+              books: results
+            });
+          });
+        db.close();
       });
     });
 
