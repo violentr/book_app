@@ -1,16 +1,7 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 5000;
-var mysql = require('mysql');
-var config = {
-  user: 'root',
-  password: '',
-  server: 'localhost',
-  database: 'books'
-};
-
-var connection = mysql.createConnection(config)
-connection.connect();
+var db = require('./src/lib/dbConnect');
 
 var nav = [{
   Link: '/Books',
@@ -18,11 +9,9 @@ var nav = [{
 }, {
   Link: '/Authors',
   Text: 'Authors'
-}]
+}];
 
-var bookRouter = require('./src/routes/bookRoutes')(nav);
-
-
+var bookRouter = require('./src/routes/bookRoutes')(nav, db);
 
 var handlebars = require('express-handlebars');
 app.engine('.hbs', handlebars({

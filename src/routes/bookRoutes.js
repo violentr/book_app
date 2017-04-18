@@ -1,22 +1,12 @@
 var express = require('express');
 var bookRouter = express.Router();
-var mysql = require('mysql');
-
-var config = {
-  user: 'root',
-  password: '',
-  server: 'localhost',
-  database: 'books'
-};
-
-var connection = mysql.createConnection(config);
-connection.connect();
-
 var books = [];
-var router = function (nav) {
+
+var router = function (nav, db) {
+  db.connect();
   bookRouter.route('/')
     .get(function (req, res) {
-      connection.query("select * from books", function (err, recordset) {
+      db.query("select * from books", function (err, recordset) {
         books = recordset;
         console.log(recordset);
       });
@@ -37,7 +27,5 @@ var router = function (nav) {
     });
   return bookRouter;
 };
-
-
 
 module.exports = router;
