@@ -4,6 +4,10 @@ var port = process.env.PORT || 5000;
 var db = require('./src/lib/dbConnect');
 var bodyParser = require('body-parser');
 
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+var session = require('express-session');
+
 var nav = [{
   Link: '/Books',
   Text: 'Books'
