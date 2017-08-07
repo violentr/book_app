@@ -1,4 +1,6 @@
-var mongodb = require('mongodb').MongoClient,
-  url = 'mongodb://localhost:27017/booksApp';
+var mongoose = require('mongoose'),
+url = 'mongodb://localhost:27017/booksApp',
+connection = mongoose.createConnection(url);
 
-module.exports = mongodb.connect(url);
+module.exports = connection;
+
