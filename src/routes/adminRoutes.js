@@ -23,11 +23,13 @@ var books = [{
   }];
 
 var router = function (nav, db) {
-  adminRouter.route('/addBooks')
+  var booksController = require('../controllers/booksController')(null, nav);
+  adminRouter.route('/addbooks')
+  .all(booksController.middleware)
     .get(function (req, res) {
       var collection = db.collection('books');
       collection.insertMany(books, function (err, results) {
-        res.send(results);
+        res.redirect('/books');
       });
     });
   return adminRouter;
