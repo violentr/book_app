@@ -19,7 +19,7 @@ var nav = [{
 var bookRouter = require('./src/routes/bookRoutes')(nav, db);
 
 var adminRouter = require('./src/routes/adminRoutes')(nav);
-var authRouter = require('./src/routes/authRoutes')(nav);
+var authRouter = require('./src/routes/authRoutes')(nav, db);
 
 var handlebars = require('express-handlebars');
 app.engine('.hbs', handlebars({
