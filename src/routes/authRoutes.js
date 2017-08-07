@@ -33,7 +33,7 @@ var router = function (db) {
         }
       })
     .get(function (req, res) {
-      res.json(req.user);
+      res.redirect('/books');
     });
   return authRouter;
 };

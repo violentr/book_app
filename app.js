@@ -46,7 +46,7 @@ app.get('/', function (req, res) {
   });
 });
 
-app.use('/Books', bookRouter);
+app.use('/books', bookRouter);
 app.use('/Admin', adminRouter);
 app.use('/auth', authRouter);
 
