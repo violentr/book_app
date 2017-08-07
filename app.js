@@ -28,6 +28,9 @@ app.engine('.hbs', handlebars({
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(session({secret: 'library'}));
+require('./src/config/passport')(app);
 
 app.set('views', './src/views');
 app.set('view engine', '.hbs');
