@@ -1,10 +1,4 @@
-var mysql = require('mysql');
+var mongodb = require('mongodb').MongoClient,
+  url = 'mongodb://localhost:27017/booksApp';
 
-var config = {
-  user: 'root',
-  password: '',
-  server: 'localhost',
-  database: 'books'
-};
-
-module.exports = mysql.createConnection(config);
+module.exports = mongodb.connect(url);
