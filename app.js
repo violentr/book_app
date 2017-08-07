@@ -18,8 +18,8 @@ var nav = [{
 
 var bookRouter = require('./src/routes/bookRoutes')(nav, db);
 
-var adminRouter = require('./src/routes/adminRoutes')(nav);
-var authRouter = require('./src/routes/authRoutes')(nav, db);
+var adminRouter = require('./src/routes/adminRoutes')(nav, db);
+var authRouter = require('./src/routes/authRoutes')(db);
 
 var handlebars = require('express-handlebars');
 app.engine('.hbs', handlebars({
@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(session({secret: 'library'}));
-require('./src/config/passport')(app);
+require('./src/config/passport')(app, db);
 
 app.set('views', './src/views');
 app.set('view engine', '.hbs');

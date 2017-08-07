@@ -1,6 +1,5 @@
-var express = require('express');
-var adminRouter = express.Router();
-var mongodb = require('mongodb').MongoClient;
+var express = require('express'),
+adminRouter = express.Router();
 
 var books = [{
     book_title: 'book 1',
@@ -23,16 +22,12 @@ var books = [{
     book_author: 'Author 5'
   }];
 
-var router = function (nav) {
+var router = function (nav, db) {
   adminRouter.route('/addBooks')
     .get(function (req, res) {
-      var url = 'mongodb://localhost:27017/booksApp';
-      mongodb.connect(url, function (err, db) {
-        var collection = db.collection('books');
-        collection.insertMany(books, function (err, results) {
-          res.send(results);
-          db.close();
-        });
+      var collection = db.collection('books');
+      collection.insertMany(books, function (err, results) {
+        res.send(results);
       });
     });
   return adminRouter;

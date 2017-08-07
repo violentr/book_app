@@ -1,24 +1,20 @@
-var express = require('express');
-var authRouter = express.Router();
-var mongodb = require('mongodb').MongoClient;
+var express = require('express'),
+  authRouter = express.Router(),
+  passport = require('passport');
 
 
-var router = function () {
+var router = function (db) {
   authRouter.route('/signup')
     .post(function (req, res) {
       console.log(req.body);
-      var url = "mongodb://localhost:27017/booksApp";
-      mongodb.connect(url, function (err, db) {
-        var collection = db.collection('users');
-        var user = {
-          username: req.body.username,
-          password: req.body.password
-        };
-        collection.insert(user, function (err, results) {
-          req.login(results.ops[0], function () {
-            res.redirect('/auth/profile');
-
-          });
+      var collection = db.collection('users');
+      var user = {
+        username: req.body.username,
+        password: req.body.password
+      };
+      collection.insert(user, function (err, results) {
+        req.login(results.ops[0], function () {
+          res.redirect('/auth/profile');
         });
       });
     });
